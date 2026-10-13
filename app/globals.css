@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: #151515;
+  color: #e9e9e9;
+  font-family: "Space Grotesk", system-ui, "Segoe UI", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: #b9f43a;
+  color: #151515;
+}
+
+@layer components {
+  /* Uppercase sans headline with an italic serif phrase, like the reference */
+  .headline {
+    @apply font-medium uppercase leading-[1.05] tracking-tight;
+  }
+  .serif-italic {
+    @apply font-serif italic normal-case font-normal;
+  }
+  .btn-lime {
+    @apply inline-flex items-center gap-2 bg-lime px-5 py-3 text-xs font-semibold uppercase tracking-wide text-ink transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 border border-white/20 px-5 py-3 text-xs font-semibold uppercase tracking-wide text-white transition hover:border-lime hover:text-lime focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime;
+  }
+  .chip {
+    @apply border border-line bg-ink px-3 py-1.5 text-xs text-white/80;
+  }
+}
+
+/* Rotating "hire me" badge: the one moving element on the page */
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin-slow {
+  animation: spin-slow 18s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .spin-slow {
+    animation: none;
+  }
+}
