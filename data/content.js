@@ -129,6 +129,9 @@ export const experience = {
 };
 
 // image: put screenshots in public/projects/ with these file names.
+// gallery: screenshots shown in the popup gallery when the card is clicked.
+//          The first entry is used as the card cover. Add/remove entries freely;
+//          files that don't exist yet are skipped automatically.
 // youtube: paste a YouTube link or the 11-character video ID. Opens in a popup player.
 //          Leave it empty to fall back to the `demo` link (opens in a new tab), or to no demo button.
 export const projects = {
@@ -140,6 +143,7 @@ export const projects = {
       title: "SpotiFit",
       subtitle: "AI Fitness Coach (Graduation Project)",
       image: "/projects/spotifit.png",
+      gallery: ["/projects/spotifit.png", "/projects/spotifit-2.png", "/projects/spotifit-3.png"],
       stack: ["Flutter", "REST API", "AI Chatbot"],
       description:
         "Fitness coaching app with AI-powered guidance, workout tracking, nutrition management, and progress analytics.",
@@ -157,6 +161,7 @@ export const projects = {
       title: "Timor AI",
       subtitle: "AI Personal Assistant",
       image: "/projects/timor-ai.png",
+      gallery: ["/projects/timor-ai.png", "/projects/timor-ai-2.png", "/projects/timor-ai-3.png"],
       stack: ["Flutter", "Gemini API", "Speech Recognition", "Text-to-Speech"],
       description:
         "AI assistant app for chatting with Gemini, sending image prompts, and using voice input and spoken replies, with a Material dark theme.",
@@ -174,6 +179,7 @@ export const projects = {
       title: "Event Countdown",
       subtitle: "Android events and holidays app",
       image: "/projects/event-countdown.png",
+      gallery: ["/projects/event-countdown.png", "/projects/event-countdown-2.png", "/projects/event-countdown-3.png"],
       stack: ["Kotlin", "Jetpack Compose"],
       description:
         "Android app to create, view, and manage events and holidays with live countdowns, with onboarding, login/signup, theming, localization, and persistent storage.",
@@ -190,6 +196,7 @@ export const projects = {
       title: "Ping-Pong",
       subtitle: "Real-time chat app",
       image: "/projects/ping-pong.png",
+      gallery: ["/projects/ping-pong.png", "/projects/ping-pong-2.png", "/projects/ping-pong-3.png"],
       stack: ["Flutter", "Firebase Auth", "Cloud Firestore"],
       description:
         "Real-time chat app with email authentication and instant message syncing.",

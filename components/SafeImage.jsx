@@ -4,8 +4,13 @@ import { useState } from "react";
 
 // Shows the image if the file exists, otherwise a clear placeholder
 // so the layout never breaks while you add your screenshots.
-export default function SafeImage({ src, alt, label, className = "" }) {
+export default function SafeImage({ src, alt, label, className = "", onFail }) {
   const [failed, setFailed] = useState(false);
+
+  const handleError = () => {
+    setFailed(true);
+    onFail?.();
+  };
 
   if (failed || !src) {
     return (
@@ -20,5 +25,5 @@ export default function SafeImage({ src, alt, label, className = "" }) {
   }
 
   // eslint-disable-next-line @next/next/no-img-element
-  return <img src={src} alt={alt} className={className} onError={() => setFailed(true)} loading="lazy" />;
+  return <img src={src} alt={alt} className={className} onError={handleError} loading="lazy" />;
 }

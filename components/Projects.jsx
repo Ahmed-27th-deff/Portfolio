@@ -5,9 +5,16 @@ import { projects } from "@/data/content";
 import SectionTitle from "./SectionTitle";
 import SafeImage from "./SafeImage";
 import VideoModal, { getYouTubeId } from "./VideoModal";
+import GalleryModal from "./GalleryModal";
 
 export default function Projects() {
   const [active, setActive] = useState(null); // { id, title } of the open video
+  const [gallery, setGallery] = useState(null); // { title, images } of the open screenshot gallery
+
+  const openGallery = (p) => {
+    const images = (p.gallery?.length ? p.gallery : [p.image]).filter(Boolean);
+    setGallery({ title: p.title, images });
+  };
 
   return (
     <section id="projects">
@@ -18,16 +25,39 @@ export default function Projects() {
           {projects.items.map((p) => {
             const videoId = getYouTubeId(p.youtube);
             return (
-              <article key={p.title} className="flex flex-col border border-line bg-card">
-                <div className="aspect-[16/10] overflow-hidden border-b border-line">
+              <article
+                key={p.title}
+                className="flex cursor-pointer flex-col border border-line bg-card transition hover:border-white/30"
+                onClick={(e) => {
+                  if (e.target.closest("a, button")) return;
+                  if (window.getSelection()?.toString()) return; // don't open while selecting text
+                  openGallery(p);
+                }}
+              >
+                <button
+                  type="button"
+                  onClick={() => openGallery(p)}
+                  aria-label={`View screenshots of ${p.title}`}
+                  className="group relative block aspect-[16/10] w-full overflow-hidden border-b border-line text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-lime"
+                >
                   <SafeImage
                     src={p.image}
                     alt={`${p.title} screenshots`}
                     label={`Add screenshot: public${p.image}`}
                     lazy
-                    className="h-full w-full object-cover object-top"
+                    className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-105"
                   />
-                </div>
+                  <span className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-center bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 transition group-hover:opacity-100 group-focus-visible:opacity-100">
+                    <span className="inline-flex items-center gap-2 border border-lime bg-black/70 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-lime">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                        <rect x="3" y="4" width="18" height="16" rx="1" />
+                        <path d="M3 16l5-5 4 4 3-3 6 6" />
+                        <circle cx="8.5" cy="9" r="1.5" />
+                      </svg>
+                      View gallery
+                    </span>
+                  </span>
+                </button>
 
                 <div className="flex flex-1 flex-col p-6">
                   <div className="flex flex-wrap items-baseline justify-between gap-x-4">
@@ -87,6 +117,10 @@ export default function Projects() {
       </div>
 
       {active && <VideoModal videoId={active.id} title={active.title} onClose={() => setActive(null)} />}
+
+      {gallery && (
+        <GalleryModal title={gallery.title} images={gallery.images} onClose={() => setGallery(null)} />
+      )}
     </section>
   );
 }
